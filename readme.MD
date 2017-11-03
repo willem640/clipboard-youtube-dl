@@ -1,0 +1,1 @@
+protip: use iterm, go into preferences and choose the option that automatically puts highlight in clipboard. this is extra fun to use when browsing youtube, or using soundcloud2000. Cool! 
