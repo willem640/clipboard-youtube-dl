@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"net/url"
 
 	"github.com/TableMountain/goydl"
 	"github.com/tjgq/clipboard"
@@ -29,28 +27,14 @@ func f() {
 			continue
 		}
 		println("got: ", got, "\nas: ", info.Title)
-		_, err = url.Parse(got)
-		if err != nil {
-			fmt.Println("URL recieved not valid: ", err)
-			continue
-		}
-		path := fmt.Sprintf("~/Desktop/%s",info.Title)
-		youtubeDl.Options.Output.Value = path
-		go func() {
-			defer func() {
-				if r := recover(); r != nil {
-					fmt.Println("Recovered from bad URL", r)
-				}
-			}()
-			cmd, err := youtubeDl.Download(got)
-			youtubeDl.Options.Output.Value = info.Title
-			if err != nil {
-				log.Print("that wasn't a good URL, ", err)
-			} else {
-				println("starting download")
-				cmd.Wait()
-				println("finished download")
-			}
-		}()
+		// path := fmt.Sprintf("~/Desktop/%s.mp4", info.Title)
+		// println("saving to ", path)
+		// youtubeDl.Options.Output.Value = path
+		cmd, err := youtubeDl.Download(got)
+		youtubeDl.Options.Output.Value = info.Title
+
+		println("starting download")
+		cmd.Wait()
+		println("finished download")
 	}
 }
